@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.8.0" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png?v=2.8.0" sizes="180x180"><link rel="mask-icon" href="/%5Bobject%20Object%5D?v=2.8.0" color="#54bcff"><meta name="msapplication-TileImage" content="/%5Bobject%20Object%5D"><meta name="msapplication-TileColor" content="#000000"><meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript实现登录系统（持续更新中）">
+<meta property="og:url" content="https://www.kimokan.top/2023/06/24/JavaScript%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="KIMO">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-24T00:18:19.000Z">
+<meta property="article:modified_time" content="2023-06-29T12:50:42.820Z">
+<meta property="article:author" content="KIMO">
+<meta name="twitter:card" content="summary"><title>JavaScript实现登录系统（持续更新中） | KIMO</title><link ref="canonical" href="https://www.kimokan.top/2023/06/24/JavaScript%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: ["google","bing","baidu"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":true},
+  reward: true,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: {"colWidth":"220px","gapX":"10px"},
+  lazyload: false,
+  pjax: {"avoidBanner":false},
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Welcome</div><div class="header-banner-info__subtitle">This is My Blog</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">JavaScript实现登录系统（持续更新中）</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-06-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2023-06-29</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><h1 id="JavaScript">
+          <a href="#JavaScript" class="heading-link"><i class="fas fa-link"></i></a><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1>
+      <span id="more"></span>
+
+        <h2 id="HTML">
+          <a href="#HTML" class="heading-link"><i class="fas fa-link"></i></a><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2>
+      
+        <h3 id="登录HTML代码如下">
+          <a href="#登录HTML代码如下" class="heading-link"><i class="fas fa-link"></i></a><a href="#登录HTML代码如下" class="headerlink" title="登录HTML代码如下"></a>登录HTML代码如下</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs html-login">&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>    &lt;meta charset="UTF-8"&gt;<br>    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>    &lt;title&gt;UserLogin&lt;/title&gt;<br>    &lt;link rel="stylesheet" href="style.css"&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>    &lt;div class="user-center"&gt;<br>        &lt;div class="please"&gt;&lt;/div&gt;<br>        &lt;h3 class="login-user"&gt;欢迎━(*｀∀´*)ノ亻!&lt;/h3&gt;<br>        &lt;div class="user-one"&gt;<br>            &lt;div class="userlogin"&gt;<br>                &lt;label class="labels"&gt;用户：&lt;/label&gt;<br>                &lt;input type="text" class="user_value" &gt;<br>            &lt;/div&gt;<br>            &lt;div class="pass" &gt;<br>                &lt;label class="pass" &gt;密码：&lt;/label&gt;<br>                &lt;input type="password" class="user_id" &gt;<br>            &lt;/div&gt;<br>        &lt;/div&gt;<br>        &lt;div class="cen"&gt;<br>        &lt;button type="button" class="login" &gt;登录&lt;/button&gt;<br>        &lt;button type="button" class="registration"&gt;注册&lt;/button&gt;<br>        &lt;/div&gt;<br><br>        &lt;div class="footer"&gt;<br>            &lt;a href="index3.html" class="a"&gt;忘记密码？&lt;/a&gt;<br>        &lt;/div&gt;<br>        &lt;div class="list"&gt;&lt;/div&gt;<br>    &lt;/div&gt;<br>    &lt;script src="loginapp.js"&gt;<br><br>    &lt;/script&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+        <h3 id="注册HTML代码如下">
+          <a href="#注册HTML代码如下" class="heading-link"><i class="fas fa-link"></i></a><a href="#注册HTML代码如下" class="headerlink" title="注册HTML代码如下"></a>注册HTML代码如下</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs html-registeredapp">&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>    &lt;meta charset="UTF-8"&gt;<br>    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>    &lt;title&gt;UserLogin&lt;/title&gt;<br>    &lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>    &lt;div class="user-center"&gt;<br>        &lt;div class="please"&gt;&lt;/div&gt;<br>        &lt;h2 class="login-user"&gt;请注册━(*｀∀´*)ノ亻!&lt;/h2&gt;<br>        &lt;div class="user-one"&gt;<br>            &lt;div class="userlogin"&gt;<br>                &lt;label class="labels"&gt;名称：&lt;/label&gt;<br>                &lt;input type="text" class="user_value" &gt;<br>            &lt;/div&gt;<br>            &lt;div class="pass" &gt;<br>                &lt;label class="pass" &gt;密码：&lt;/label&gt;<br>                &lt;input type="password" class="user_id" &gt;<br>            &lt;/div&gt;<br>            &lt;div class="pass" &gt;<br>                &lt;label class="pass" &gt;确认密码：&lt;/label&gt;<br>                &lt;input type="password" class="user_id2" &gt;<br>            &lt;/div&gt;<br>            &lt;div class="pass" &gt;<br>                &lt;label class="pass" &gt;邮箱：&lt;/label&gt;<br>                &lt;input type="email" class="user_email" &gt;<br>            &lt;/div&gt;<br>        &lt;/div&gt;<br>        &lt;div class="cen"&gt;<br>        &lt;button type="button" class="login"&gt;注册&lt;/button&gt;<br>        &lt;/div&gt;<br><br>        &lt;div class="footer"&gt;<br>            &lt;a href="registered.html" class="a"&gt;回到登录&lt;/a&gt;<br>        &lt;/div&gt;<br>        &lt;div class="list"&gt;&lt;/div&gt;<br>    &lt;/div&gt;<br>    &lt;script src="registeredapp.js"&gt;&lt;/script&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br><br></code></pre></td></tr></tbody></table></div></figure>
+
+        <h2 id="JS">
+          <a href="#JS" class="heading-link"><i class="fas fa-link"></i></a><a href="#JS" class="headerlink" title="JS"></a>JS</h2>
+      
+        <h3 id="登录js代码如下">
+          <a href="#登录js代码如下" class="heading-link"><i class="fas fa-link"></i></a><a href="#登录js代码如下" class="headerlink" title="登录js代码如下"></a>登录js代码如下</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs js-login"><br>// 登录界面<br>window.onload = function() {<br>    // 把所有的代码放在这里<br>    function getLocalStorage(){<br>      return localStorage.getItem('mylist') ? JSON.parse(localStorage.getItem('mylist')) : [];<br>    }<br>    function hasToLocalStorage(value,pass){<br>      let items = getLocalStorage();<br>      return items.some(function(item){<br>          return value === item.value &amp;&amp; pass === item.pass;<br>      });<br>    }<br>  <br>    let echoValue = document.querySelector(".please");<br>    let user_login = document.querySelector(".user-center");<br>    let userMenu = document.querySelector(".user-one");<br>    let userValue = document.querySelector(".user_value");<br>    let passValue = document.querySelector(".user_id");<br>    let loginBtn = document.querySelector(".login");<br>    let registBtn = document.querySelector(".registration");<br>  <br>    let st = false<br>    let pass;<br>    let value;<br>    loginBtn.addEventListener('click',hasCheck);<br>    registBtn.addEventListener('click',nextHtml);<br>    function hasCheck(e){<br>      e.preventDefault();<br>      value = userValue.value;<br>      pass = passValue.value;<br>  <br>      let id = new Date().getTime().toString();<br>      let valueBtn = loginBtn.textContent;<br>  <br>      if(!value || !pass ){<br>          displyNull("你的密码或名称不能为空！！","error");<br>      }else{<br>          let has = hasUCLN(value,pass);<br>          if(has == true){<br>              let st = hasToLocalStorage(value,pass);<br>              if(st){<br>              displyNull(`${valueBtn}成功`,"success");<br>              }else{<br>                  displyNull(`${valueBtn}失败`,"error");<br>              }<br>          }else{<br>              displyNull("你的密码格式错误！要有大写小写特殊符号","error");<br>          }<br>      }<br>    }<br>    function displyNull(text,action){<br>      echoValue.textContent = text;<br>      echoValue.classList.add(`please-${action}`);<br>      <br>      setTimeout(() =&gt; {<br>          echoValue.textContent = '';<br>          echoValue.classList.remove(`please-${action}`);<br>      },1000)<br>    }<br>  <br>    function hasUCLN(value,pass) {<br>      let regexValue = /^[a-zA-Z0-9\s]+$/.test(value);<br>      if(regexValue == true){<br>          let regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/.test(pass);<br>          if(regexPass == true){<br>              return true;<br>          }<br>      }else{<br>          displyNull("你的用户名格式错误！不能为特殊符号","error");<br>      }<br>      return false;<br>    }<br>    function nextHtml(){<br>      window.location.href = "registered.html";<br>    }<br>  }<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+
+        <h3 id="注册js代码如下">
+          <a href="#注册js代码如下" class="heading-link"><i class="fas fa-link"></i></a><a href="#注册js代码如下" class="headerlink" title="注册js代码如下"></a>注册js代码如下</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs js-registeredapp"><br>// 注册界面<br>function getLocalStorage(){<br>    return localStorage.getItem("mylist") ? JSON.parse(localStorage.getItem("mylist")) : [];<br>}<br>function addToLocalStorage(value,pass,id){<br>    const procery = {value,pass,id};<br>    let items = getLocalStorage();<br>    items.push(procery);<br>    localStorage.setItem("mylist",JSON.stringify(items));<br>}<br><br>let echoValue = document.querySelector(".please");<br>let user_login = document.querySelector(".user-center");<br>let userMenu = document.querySelector(".user-one");<br>let userValue = document.querySelector(".user_value");<br>let passValue = document.querySelector(".user_id");<br>let passValueTwo = document.querySelector(".user_id2");<br>let loginBtn = document.querySelector(".login");<br>let emailValue = document.querySelector(".user_email");<br><br><br>let st = false<br>let pass;<br>let value;<br>let email;<br>loginBtn.addEventListener('click',hasCheck);<br><br>function hasCheck(e){<br>    e.preventDefault();<br>    value = userValue.value;<br>    pass = passValue.value;<br>    passTwo = passValueTwo.value;<br>    email = emailValue.value;<br>    let id = new Date().getTime().toString(); // 修改了这里<br>    let valueBtn = loginBtn.textContent;<br>    if(pass === passTwo &amp;&amp; pass !== '' &amp;&amp; passTwo !== ''){<br>        if(!value){<br>            displyNull("你的名称不能为空！！","error");<br>        }else{<br>            let has = hasUCLN(value,pass);<br>            const emailcheck = emailhas(email);<br>            if(has === true &amp;&amp; emailcheck){<br>                addToLocalStorage(value,pass,id);<br>                displyNull(`${valueBtn}成功`,"success");<br>                window.location.href = "login.html"; // 添加了这里<br>            }else{<br>                displyNull("你的格式错误！要有大写小写","error");<br>            }<br>        }<br>    }<br>    else if(pass !== passTwo &amp;&amp; passTwo){<br>        displyNull("你的密码格式错误！要有大写小写","error");<br>    }<br>    else if(!value || !pass &amp;&amp; !passTwo){<br>        displyNull("你的密码或名称不能为空！！","error");<br>    }<br>}<br>function displyNull(text,action){<br>    echoValue.textContent = text;<br>    echoValue.classList.add(`please-${action}`);<br>    <br>    setTimeout(() =&gt; {<br>        echoValue.textContent = '';<br>        echoValue.classList.remove(`please-${action}`);<br>    },1000)<br>}<br><br>function hasUCLN(value,pass) {<br>    let regexValue = /^[a-zA-Z0-9\s]+$/.test(value);<br>    if(regexValue == true){<br>        let regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/.test(pass);<br>        if(regexPass == true){<br>            return true;<br>        }<br>    }else{<br>        displyNull("你的用户名格式错误！不能为特殊符号","error");<br>    }<br>    return false;<br>}<br><br><br>function emailhas(email){<br>    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;<br>    if(emailRegex.test(email)){<br>        return true;<br>    }else{<br>        return false;<br>    }<br>}<br></code></pre></td></tr></tbody></table></div></figure>
+
+        <h2 id="CSS">
+          <a href="#CSS" class="heading-link"><i class="fas fa-link"></i></a><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2>
+      
+        <h3 id="登录css代码如下">
+          <a href="#登录css代码如下" class="heading-link"><i class="fas fa-link"></i></a><a href="#登录css代码如下" class="headerlink" title="登录css代码如下"></a>登录css代码如下</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><code class="hljs css-login">*{<br>    margin: 0;<br>    padding: 0;<br>}<br><br>.user-center{<br>    width: 350px;<br>    height: 250px;<br>    margin: 100px auto;<br>    border: 2px solid rgb(210, 241, 247);<br>    background-color: rgba(157, 248, 248,0.1);<br>    box-shadow: 5px 7px 7px rgb(181, 229, 233);<br>    border-radius: 0.5rem;<br><br>}<br>.user-center  &gt; h3{<br>    margin-top: 20px;<br>    text-align: center;<br>    font-size: 24px;<br>    color: pink;<br>}<br><br>.user-one{<br>    width: 250px;<br>    height: 50px;<br>    margin: 30px auto;<br>}<br><br>.user_value{<br>    background: #d6f0f03b;<br>    border: 1px solid #caecf1;<br>    padding: 3px;<br>    margin-bottom: 20px;<br>    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);<br>    transition: border-color 0.3s ease;<br>    border-color: pink;<br>    border-radius: 8px;<br>}<br>.user_id{<br>    background: #d6f0f03b;<br>    border: 1px solid #caecf1;<br>    padding: 3px;<br>    margin-bottom: 20px;<br>    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);<br>    transition: border-color 0.3s ease;<br>    border-color: pink;<br>    border-radius: 8px;<br>}<br><br>.cen{<br>    width: 250px;<br>    height: 35px;<br>    margin: 40px 0 0 90px;<br>}<br>.login{<br>    background-color: pink;<br>    margin-right: 50px;<br>    width: 60px;<br>    height: 30px;<br>    border: none;<br>    border-radius: 10px;<br>    color: white;<br>    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);<br>}<br>.registration{<br>    background-color: pink;<br>    margin-right: 50px;<br>    width: 60px;<br>    height: 30px;<br>    border: none;<br>    border-radius: 10px;<br>    color: white;<br>    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);<br>}<br>.login:hover{<br>    cursor: pointer;<br>    background-color: rgb(243, 152, 167);<br>}<br>.registration:hover{<br>    cursor: pointer;<br>    background-color: rgb(243, 152, 167);<br>}<br><br>.labels{<br>    font-size: 16px;<br>    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;<br>    color: pink;<br>}<br>.pass{<br>    font-size: 16px;<br>    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;<br>    color: pink;<br>}<br><br>.footer{<br>    text-align: right;<br>    margin-right: 10px;<br>    <br>}<br>.a{<br>    text-decoration: none;<br>    color: pink;<br>}<br>.a:hover{<br>    cursor: pointer;<br>    color: #f084b1;<br>}<br><br>.please {<br>    margin-bottom: 1rem;<br>    height: 1.25rem;<br>    display: grid;<br>    align-items: center;<br>    text-align: center;<br>    font-size: 0.7rem;<br>    border-radius: 0.25rem;<br>    letter-spacing: 0.25rem;<br>    text-transform: capitalize;<br>  }<br>  .please-error {<br>    color: #721c24;<br>    background: #f8d7da;<br>  }<br>  .please-success {<br>    color: #155724;<br>    background: #d4edda;<br>  }<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+
+        <h3 id="注册css代码如下">
+          <a href="#注册css代码如下" class="heading-link"><i class="fas fa-link"></i></a><a href="#注册css代码如下" class="headerlink" title="注册css代码如下"></a>注册css代码如下</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><code class="hljs css-registeredapp">*{<br>    margin: 0;<br>    padding: 0;<br>}<br><br>.user-center{<br>    width: 350px;<br>    height: 350px;<br>    margin: 100px auto;<br>    border: 2px solid rgb(210, 241, 247);<br>    background-color: rgba(157, 248, 248,0.1);<br>    box-shadow: 5px 7px 7px rgb(181, 229, 233);<br>    border-radius: 0.5rem;<br><br>}<br>.user-center  &gt; h2{<br>    margin-top: 20px;<br>    padding-top: 10px;<br>    text-align: center;<br>    font-size: 24px;<br>    color: pink;<br>}<br><br>.user-one{<br>    width: 300px;<br>    height: 150px;<br>    margin: 20px auto;<br>    <br>}<br><br>.user_value{<br>    background: #d6f0f03b;<br>    border: 1px solid #caecf1;<br>    padding: 3px;<br>    margin: auto 32px 20px;<br>    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);<br>    transition: border-color 0.3s ease;<br>    border-color: pink;<br>    border-radius: 8px;<br>}<br>.user_id{<br>    background: #d6f0f03b;<br>    border: 1px solid #caecf1;<br>    padding: 3px;<br>    margin: auto 32px 20px;<br>    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);<br>    transition: border-color 0.3s ease;<br>    border-color: pink;<br>    border-radius: 8px;<br>}<br>.user_id2{<br>    background: #d6f0f03b;<br>    border: 1px solid #caecf1;<br>    padding: 3px;<br>    margin-bottom: 20px;<br>    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);<br>    transition: border-color 0.3s ease;<br>    border-color: pink;<br>    border-radius: 8px;<br>}<br>.user_email{<br>    background: #d6f0f03b;<br>    border: 1px solid #caecf1;<br>    padding: 3px;<br>    margin: auto 32px 20px;<br>    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);<br>    transition: border-color 0.3s ease;<br>    border-color: pink;<br>    border-radius: 8px;<br>}<br>.cen{<br>    width: 250px;<br>    height: 45px;<br>    margin: 30px 0 0 70px;<br>}<br><br>.login{<br>    background-color: pink;<br>    margin-left: 20px;<br>    width: 60px;<br>    height: 30px;<br>    border: none;<br>    border-radius: 10px;<br>    color: white;<br>    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);<br>}<br>.login:hover{<br>    cursor: pointer;<br>    background-color: rgb(243, 152, 167);<br>}<br><br><br>.labels{<br>    font-size: 16px;<br>    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;<br>    color: pink;<br>}<br>.pass{<br>    font-size: 16px;<br>    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;<br>    color: pink;<br>}<br><br>.footer{<br>    text-align: right;<br>    margin-right: 10px;<br>    <br>}<br>.a{<br>    text-decoration: none;<br>    color: pink;<br>}<br>.a:hover{<br>    cursor: pointer;<br>    color: #f084b1;<br>}<br><br>.please {<br>    margin-bottom: 1rem;<br>    height: 1.25rem;<br>    display: grid;<br>    align-items: center;<br>    text-align: center;<br>    font-size: 0.7rem;<br>    border-radius: 0.25rem;<br>    letter-spacing: 0.25rem;<br>    text-transform: capitalize;<br>  }<br>  .please-error {<br>    color: #721c24;<br>    background: #f8d7da;<br>  }<br>  .please-success {<br>    color: #155724;<br>    background: #d4edda;<br>  }<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+
+        <h1 id="项目大总结">
+          <a href="#项目大总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#项目大总结" class="headerlink" title="项目大总结"></a>项目大总结</h1>
+      <p>本小项目用了LocalStorage来进行储存在浏览器中，中途遇到很多坑（对JavaScript还是不太能运用（：两个界面中使用的储存键一定要相同！运用了很多语法：localStorage， JSON.parse，some（），classList，事件点击，事件获取DOM，正则表达式，location对象，Date等知识点。有个小坑！为什么我在谷歌注册信息能保存本地储存会话中，虽然火狐也行，但是跳转到登录界面的时候浏览器的本地储存信息没有了！！这是我的小坑，一开始我都是在火狐运行的最后还是问了一下new bing 才发现在谷歌居然能运行哎！关键火狐我还是不太懂为什么不行。（个人能力有限QAQ））.</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://www.kimokan.top">KIMO</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://www.kimokan.top/2023/06/24/JavaScript%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/">https://www.kimokan.top/2023/06/24/JavaScript%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="https://i.postimg.cc/cJbTzD9S/zfb.jpg"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="https://i.postimg.cc/MKQ5FbVk/wx.jpg"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2019/05/15/hello-world/"><span class="paginator-prev__text">Hi</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript"><span class="toc-number">1.</span> <span class="toc-text">
+          JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML"><span class="toc-number">1.1.</span> <span class="toc-text">
+          HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95HTML%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+          登录HTML代码如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8CHTML%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.1.2.</span> <span class="toc-text">
+          注册HTML代码如下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS"><span class="toc-number">1.2.</span> <span class="toc-text">
+          JS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95js%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          登录js代码如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8Cjs%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">
+          注册js代码如下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-number">1.3.</span> <span class="toc-text">
+          CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95css%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">
+          登录css代码如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8Ccss%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">
+          注册css代码如下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%A4%A7%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">
+          项目大总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/top.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">学习中...</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/KIMONOSAA" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/@skimo8528660862" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="kimo s" target="_blank" rel="noopener" data-popover="Telegram" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-telegram"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=3248034755" target="_blank" rel="noopener" data-popover="social.QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-email"><a class="sidebar-ov-feed-email__link" href="mailto:skimo8092@gmail.com" target="_blank" rel="noopener"><span class="sidebar-ov-feed-email__icon"><i class="fas fa-envelope"></i></span><span>Email 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">归档</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2023</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>KIMO</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.3.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.8.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"><div class="search-btns">使用搜索：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>谷歌</span><span class="search-btns-item search-btns-item--bing"><i></i>必应</span><span class="search-btns-item search-btns-item--baidu"><i></i>百度</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/pjax@latest/pjax.min.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+  var pjax = new Pjax({"selectors":["head title","#main",".pjax-reload",".header-banner"],"history":true,"scrollTo":false,"scrollRestoration":false,"cacheBust":false,"debug":false,"currentUrlFullReload":false,"timeout":0});
+  // 加载进度条的计时器
+  var loadingTimer = null;
+
+  // 重置页面 Y 方向上的滚动偏移量
+  document.addEventListener('pjax:send', function () {
+    $('.header-nav-menu').removeClass('show');
+    if (CONFIG.pjax && CONFIG.pjax.avoidBanner) {
+      $('html').velocity('scroll', {
+        duration: 500,
+        offset: $('#header').height(),
+        easing: 'easeInOutCubic'
+      });
+    }
+
+    var loadingBarWidth = 20;
+    var MAX_LOADING_WIDTH = 95;
+
+    $('.loading-bar').addClass('loading');
+    $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    clearInterval(loadingTimer);
+    loadingTimer = setInterval(function () {
+      loadingBarWidth += 3;
+      if (loadingBarWidth > MAX_LOADING_WIDTH) {
+        loadingBarWidth = MAX_LOADING_WIDTH;
+      }
+      $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    }, 500);
+  }, false);
+
+  window.addEventListener('pjax:complete', function () {
+    clearInterval(loadingTimer);
+    $('.loading-bar__progress').css('width', '100%');
+    $('.loading-bar').removeClass('loading');
+    setTimeout(function () {
+      $('.loading-bar__progress').css('width', '0');
+    }, 400);
+    $('link[rel=prefetch], script[data-pjax-rm]').each(function () {
+      $(this).remove();
+    });
+    $('script[data-pjax], #pjax-reload script').each(function () {
+      $(this).parent().append($(this).remove());
+    });
+
+    if (Stun.utils.pjaxReloadBoot) {
+      Stun.utils.pjaxReloadBoot();
+    }
+    if (Stun.utils.pjaxReloadScroll) {
+      Stun.utils.pjaxReloadScroll();
+    }
+    if (Stun.utils.pjaxReloadSidebar) {
+      Stun.utils.pjaxReloadSidebar();
+    }
+    if (false) {
+      if (Stun.utils.pjaxReloadHeader) {
+        Stun.utils.pjaxReloadHeader();
+      }
+      if (Stun.utils.pjaxReloadScrollIcon) {
+        Stun.utils.pjaxReloadScrollIcon();
+      }
+      if (Stun.utils.pjaxReloadLocalSearch) {
+        Stun.utils.pjaxReloadLocalSearch();
+      }
+    }
+  }, false);
+}, false);</script><div id="pjax-reload"><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js" data-pjax=""></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js" data-pjax=""></script><script data-pjax="">function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '4e7f8845bb828be0cb81',
+    clientSecret: 'fc7f192f15cbf4112757f93cdb9181487af8046a',
+    repo: 'gitalk-comments',
+    owner: 'KIMONOSAA',
+    admin: ['KIMONOSAA'],
+    distractionFreeMode: 'true',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (true) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script><script type="application/json" src="/search.xml"></script></body></html>
