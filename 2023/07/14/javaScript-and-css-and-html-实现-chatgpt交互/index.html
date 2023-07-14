@@ -1,0 +1,423 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.8.0" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png?v=2.8.0" sizes="180x180"><link rel="mask-icon" href="/%5Bobject%20Object%5D?v=2.8.0" color="#54bcff"><meta name="msapplication-TileImage" content="/%5Bobject%20Object%5D"><meta name="msapplication-TileColor" content="#000000"><meta property="og:type" content="article">
+<meta property="og:title" content="javaScript And CSS And HTML 实现 ChatGPT交互">
+<meta property="og:url" content="https://www.kimokan.top/2023/07/14/javaScript-and-css-and-html-%E5%AE%9E%E7%8E%B0-chatgpt%E4%BA%A4%E4%BA%92/index.html">
+<meta property="og:site_name" content="KIMO">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-14T08:50:17.000Z">
+<meta property="article:modified_time" content="2023-07-14T09:13:10.177Z">
+<meta property="article:author" content="KIMO">
+<meta name="twitter:card" content="summary"><title>javaScript And CSS And HTML 实现 ChatGPT交互 | KIMO</title><link ref="canonical" href="https://www.kimokan.top/2023/07/14/javaScript-and-css-and-html-%E5%AE%9E%E7%8E%B0-chatgpt%E4%BA%A4%E4%BA%92/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: ["google","bing","baidu"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":true},
+  reward: true,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: {"colWidth":"220px","gapX":"10px"},
+  lazyload: false,
+  pjax: {"avoidBanner":false},
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Welcome</div><div class="header-banner-info__subtitle">This is My Blog</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">javaScript And CSS And HTML 实现 ChatGPT交互</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-07-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2023-07-14</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><h1 id="JavaScript-（后期更新用react实现）">
+          <a href="#JavaScript-（后期更新用react实现）" class="heading-link"><i class="fas fa-link"></i></a><a href="#JavaScript-（后期更新用react实现）" class="headerlink" title="JavaScript （后期更新用react实现）"></a>JavaScript （后期更新用react实现）</h1>
+      <span id="more"></span>
+
+        <h2 id="HTML">
+          <a href="#HTML" class="heading-link"><i class="fas fa-link"></i></a><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs html-login">文件名：chatindex.html<br>&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>    &lt;meta charset="UTF-8"&gt;<br>    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>    &lt;title&gt;ChatGPT&lt;/title&gt;<br>    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /&gt;<br>    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /&gt;<br>    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /&gt;<br>    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /&gt;<br>    &lt;link rel="stylesheet" href="style.css"&gt;<br>    <br>&lt;/head&gt;<br>&lt;body&gt;<br>    &lt;button class="button-toggle"&gt;<br>        &lt;span class="material-symbols-outlined"&gt;mode_comment&lt;/span&gt;<br>        &lt;span class="material-symbols-outlined"&gt;close&lt;/span&gt;<br>    &lt;/button&gt;<br>    &lt;main class="mainbox"&gt;    <br>        &lt;div class="chatbox"&gt;<br>            &lt;div class="chatcolor"&gt;<br>                &lt;h2 class="chatfont"&gt;ChatBOT&lt;/h2&gt;<br>            &lt;/div&gt;<br>            &lt;ul class="chatbody"&gt;<br>                &lt;li class="chat imgbot"&gt;<br>                    &lt;span class="material-symbols-outlined robot"&gt;smart_toy&lt;/span&gt;<br>                    &lt;p&gt;欢迎来到机器人问答室👋&lt;br /&gt;可以直接问我哦！😄&lt;/p&gt;<br>                &lt;/li&gt;<br>            &lt;/ul&gt;<br>        &lt;/div&gt;<br>        &lt;div class="inputtext"&gt;<br>            &lt;textarea placeholder="就算是机器人也要文明用语哦(⊙o⊙)…！" required&gt;&lt;/textarea&gt;<br>            &lt;span id="cssrrow" class="material-symbols-outlined"&gt;chevron_right&lt;/span&gt;<br>        &lt;/div&gt;<br>    &lt;/main&gt;<br>    &lt;script src="chatjs.js" &gt;&lt;/script&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+        <h2 id="CSS">
+          <a href="#CSS" class="heading-link"><i class="fas fa-link"></i></a><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><code class="hljs html-login">文件名：style.css<br>@import url('https://fonts.googleapis.com/css2?family=Asap:wght@100&amp;family=Noto+Sans+SC:wght@400;700;900&amp;display=swap');<br><br>*{<br>    padding: 0;<br>    margin: 0;<br>    box-sizing: border-box;<br>    font-family: 'Asap', sans-serif;<br>    font-family: 'Noto Sans SC', sans-serif;<br>}<br>body{<br>    background: #E3F2FD;<br>}<br>.button-toggle{<br>    position: fixed;<br>    bottom: 30px;<br>    right: 80px;<br>    border: none;<br>    outline: none;<br>    height: 50px;<br>    width: 50px;<br>    border-radius: 50%;<br>    display: flex;<br>    background-color: #724ae8;<br>    align-items: center;<br>    justify-content: center;<br>    transition: all 0.2s ease;<br>    cursor: pointer;<br>}<br>body.show-chatbot .button-toggle{<br>    transform: rotate(90deg);<br>}<br>.button-toggle span{<br>    color: #fff;<br>    position: absolute;<br>}<br>.button-toggle span:last-child,<br>body.show-chatbot .button-toggle span:first-child{<br>    opacity: 0;<br>}<br>body.show-chatbot .button-toggle span:last-child{<br>    opacity: 1;<br>}<br>.mainbox{<br>    width: 430px;<br>    overflow: hidden;<br>    background-color: rgb(250, 249, 249);<br>    position: fixed;<br>    bottom: 100px;<br>    opacity: 0;<br>    right: 85px;<br>    border-radius: 15px;<br>    transform: scale(0.5);<br>    transform-origin: bottom right;<br>    pointer-events: none;<br>    box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),<br>              0 32px 64px -48px rgba(0,0,0,0.5);<br>    transition: all 0.1s ease;<br>}<br>body.show-chatbot .mainbox{<br>    opacity: 1;<br>    pointer-events: auto;<br>    transform: scale(1);<br>}<br><br>.chatcolor{<br>    width: 430px;<br>    height: 100px;<br>    display: flex;<br>    border-top-right-radius: 15px;<br>    border-top-left-radius: 15px;<br>    align-items: center;<br>    justify-content: center;<br>    background-color: rgb(253, 203, 211);<br>    margin-bottom: 70px;<br>}<br>.chatfont{<br>    color: #cfe8fa;<br>}<br>.chatbody .outgoing{<br>    margin: 20px 20px;<br>    justify-content: flex-end;<br>}<br>.mainbox .chatbody{<br>    height: 460px;<br>}<br>.chatbody .imgbot .robot{<br>    margin: 0 10px 7px 0;<br>    display: flex;<br>    justify-content: center;<br>    align-items: center;<br>    width: 35px;<br>    height: 35px;<br>    align-self: flex-end;<br>    background: rgb(74, 197, 235);<br>    color: aliceblue;<br>    border-radius: 8px;<br>    margin-left: 25px;<br>}<br><br>.chatbody .chat p{<br>    white-space: pre-wrap;<br>    padding: 12px 16px;<br>    border-radius: 10px 10px 0 10px;<br>    max-width: 75%;<br>    color: #fff;<br>    font-size: 0.95rem;<br>    background: #724ae8;<br>}<br><br>.chatbody .imgbot p{<br>    border-radius: 10px 10px 10px 0;<br>}<br>.chatbody .imgbot p{<br>    color: #000;<br>    background: #f2f2f2;<br>}<br>.chatbody .chat{<br>    display: flex;<br>    list-style: none;<br>}<br>.mainbox .inputtext{<br>    display: flex;<br>    gap: 5px;<br>    position: absolute;<br>    bottom: 0;<br>    width: 100%;<br>    background: #fff;<br>    padding: 3px 20px;<br>    border-top: 1px solid #ddd;<br>    box-sizing: border-box;<br>}<br>.inputtext textarea{<br>    height: 55px;<br>    width: 100%;<br>    max-height: 180px;<br>    border: none;<br>    outline: none;<br>    resize: none;<br>    padding: 15px 15px 15px 0;<br>    font-size: 0.95rem;<br>}<br>.inputtext span{<br>    display: flex;<br>    justify-content: center;<br>    align-items: center;<br>    <br>    color: pink;<br>    cursor: pointer;<br>    height: 55px;<br>    visibility: hidden;<br>    font-size: 1.35rem;<br>}<br>.inputtext textarea:valid ~ span{<br>    visibility: visible;<br>}<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+        <h2 id="Javascript">
+          <a href="#Javascript" class="heading-link"><i class="fas fa-link"></i></a><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs html-login">文件名：chatjs.js<br>const chatbotToggler = document.querySelector(".button-toggle");<br>const chatbox = document.querySelector(".chatbody");<br>const chatBody = document.querySelector(".chatbody");<br>const chatInput = document.querySelector(".inputtext textarea");<br>const sendChatBtn = document.querySelector(".inputtext span");<br><br>let usermessAge = null;<br>const API_KEY = "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"; <br>const creaChild = (message,classname) =&gt; {<br>    const chatLi = document.createElement("li");<br>    chatLi.classList.add("chat",`${classname}`);<br>    let chatContent = classname === "outgoing" ? `&lt;p&gt;&lt;/p&gt;` : `&lt;span class="material-symbols-outlined robot"&gt;smart_toy&lt;/span&gt;<br>    &lt;p&gt;&lt;/p&gt;`;<br>    chatLi.innerHTML = chatContent;<br>    chatLi.querySelector('p').textContent = message;<br>    return chatLi;<br>}<br><br>const generateResponse = (chatElement) =&gt; {<br>    const API_URL = 'https://api.openai.com/v1/chat/completions';<br>    const messageElement = chatElement.querySelector('p');<br><br>    const requestOptions = {<br>        method: "POST",<br>        headers: {<br>            "Content-Type": "application/json",<br>            "Authorization": `Bearer ${API_KEY}`<br>        },<br>        body: JSON.stringify({<br>            model: "gpt-3.5-turbo",<br>            messages: [{role: "user", content: usermessAge}],<br>        })<br>    }<br><br>    fetch(API_URL,requestOptions).then(resolve =&gt; resolve.json()).then( data =&gt; {<br>        messageElement.textContent = data.choices[0].message.content.trim();<br>    }).catch( () =&gt; {<br>        messageElement.classList.add("error");<br>        messageElement.textContent = "哼！ 出错啦 一定是你的密钥有问题唉嘿~";<br>    })<br>    // fetch(API_URL, requestOptions).then(res =&gt; res.json()).then(data =&gt; {<br>    //     messageElement.textContent = data.choices[0].message.content.trim();<br>    // }).catch(() =&gt; {<br>    //     messageElement.classList.add("error");<br>    //     messageElement.textContent = "哼！ 出错啦 一定是你的密钥有问题唉嘿~";<br>    // })<br>}<br><br><br><br>const handlechat = () =&gt; {<br>    usermessAge = chatInput.value.trim();<br>    if(!usermessAge) return;<br><br>    chatInput.value = '';<br>    chatBody.appendChild(creaChild(usermessAge,'outgoing'));<br><br>    setTimeout(() =&gt; {<br>        const creacloe = creaChild('加载中...','imgbot');<br>        chatBody.appendChild(creacloe);<br>        generateResponse(creacloe);<br><br>    },500)<br>}<br><br>const handlemenu = () =&gt; {<br>    document.body.classList.toggle("show-chatbot");<br>}<br><br>sendChatBtn.addEventListener('click',handlechat);<br>chatbotToggler.addEventListener("click",handlemenu);<br></code></pre></td></tr></tbody></table></div></figure>
+
+
+        <h1 id="项目大总结">
+          <a href="#项目大总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#项目大总结" class="headerlink" title="项目大总结"></a>项目大总结</h1>
+      <p>辛苦了一下午终于写完啦，本小项目用了fetch API来进行跟gpt发送请求接受信息，将data信息输出到页面中，注意需要输入自己的KEY，这个项目主要是以js跟css响应式为主，再js文件里我定义了creaChild和generateResponse，creaChild是收到两个参数其中第二个参数是用来判定是人发的信息还是机器人发的，如果是机器人还需要添加<span class="material-symbols-outlined robot">smart_toy</span>这个标签然后从chatLi这个变量获取p标签把第一个参数添加到p标签上，generateResponse是发生数据以及KEY请求ChatGPT官网接受信息然后输出到html上。<br>运用的语法有：document.querySelector，classList.add，JSON.stringify，fetch，innerHTML，trim，toggle<br>遇到的坑还是再js跟css响应上，太难啦😭，不过还是完成了。（后续会跟新用react来写）。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://www.kimokan.top">KIMO</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://www.kimokan.top/2023/07/14/javaScript-and-css-and-html-%E5%AE%9E%E7%8E%B0-chatgpt%E4%BA%A4%E4%BA%92/">https://www.kimokan.top/2023/07/14/javaScript-and-css-and-html-%E5%AE%9E%E7%8E%B0-chatgpt%E4%BA%A4%E4%BA%92/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="https://i.postimg.cc/cJbTzD9S/zfb.jpg"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="https://i.postimg.cc/MKQ5FbVk/wx.jpg"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2023/06/24/JavaScript%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/"><span class="paginator-prev__text">JavaScript实现登录系统（持续更新中）</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-%EF%BC%88%E5%90%8E%E6%9C%9F%E6%9B%B4%E6%96%B0%E7%94%A8react%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">
+          JavaScript （后期更新用react实现）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML"><span class="toc-number">1.1.</span> <span class="toc-text">
+          HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-number">1.2.</span> <span class="toc-text">
+          CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Javascript"><span class="toc-number">1.3.</span> <span class="toc-text">
+          Javascript</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%A4%A7%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">
+          项目大总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/top.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">学习中...</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/KIMONOSAA" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/@skimo8528660862" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="kimo s" target="_blank" rel="noopener" data-popover="Telegram" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-telegram"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=3248034755" target="_blank" rel="noopener" data-popover="social.QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-email"><a class="sidebar-ov-feed-email__link" href="mailto:skimo8092@gmail.com" target="_blank" rel="noopener"><span class="sidebar-ov-feed-email__icon"><i class="fas fa-envelope"></i></span><span>Email 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">归档</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2023</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>KIMO</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.3.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.8.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"><div class="search-btns">使用搜索：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>谷歌</span><span class="search-btns-item search-btns-item--bing"><i></i>必应</span><span class="search-btns-item search-btns-item--baidu"><i></i>百度</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/pjax@latest/pjax.min.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+  var pjax = new Pjax({"selectors":["head title","#main",".pjax-reload",".header-banner"],"history":true,"scrollTo":false,"scrollRestoration":false,"cacheBust":false,"debug":false,"currentUrlFullReload":false,"timeout":0});
+  // 加载进度条的计时器
+  var loadingTimer = null;
+
+  // 重置页面 Y 方向上的滚动偏移量
+  document.addEventListener('pjax:send', function () {
+    $('.header-nav-menu').removeClass('show');
+    if (CONFIG.pjax && CONFIG.pjax.avoidBanner) {
+      $('html').velocity('scroll', {
+        duration: 500,
+        offset: $('#header').height(),
+        easing: 'easeInOutCubic'
+      });
+    }
+
+    var loadingBarWidth = 20;
+    var MAX_LOADING_WIDTH = 95;
+
+    $('.loading-bar').addClass('loading');
+    $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    clearInterval(loadingTimer);
+    loadingTimer = setInterval(function () {
+      loadingBarWidth += 3;
+      if (loadingBarWidth > MAX_LOADING_WIDTH) {
+        loadingBarWidth = MAX_LOADING_WIDTH;
+      }
+      $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    }, 500);
+  }, false);
+
+  window.addEventListener('pjax:complete', function () {
+    clearInterval(loadingTimer);
+    $('.loading-bar__progress').css('width', '100%');
+    $('.loading-bar').removeClass('loading');
+    setTimeout(function () {
+      $('.loading-bar__progress').css('width', '0');
+    }, 400);
+    $('link[rel=prefetch], script[data-pjax-rm]').each(function () {
+      $(this).remove();
+    });
+    $('script[data-pjax], #pjax-reload script').each(function () {
+      $(this).parent().append($(this).remove());
+    });
+
+    if (Stun.utils.pjaxReloadBoot) {
+      Stun.utils.pjaxReloadBoot();
+    }
+    if (Stun.utils.pjaxReloadScroll) {
+      Stun.utils.pjaxReloadScroll();
+    }
+    if (Stun.utils.pjaxReloadSidebar) {
+      Stun.utils.pjaxReloadSidebar();
+    }
+    if (false) {
+      if (Stun.utils.pjaxReloadHeader) {
+        Stun.utils.pjaxReloadHeader();
+      }
+      if (Stun.utils.pjaxReloadScrollIcon) {
+        Stun.utils.pjaxReloadScrollIcon();
+      }
+      if (Stun.utils.pjaxReloadLocalSearch) {
+        Stun.utils.pjaxReloadLocalSearch();
+      }
+    }
+  }, false);
+}, false);</script><div id="pjax-reload"><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js" data-pjax=""></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js" data-pjax=""></script><script data-pjax="">function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '4e7f8845bb828be0cb81',
+    clientSecret: 'fc7f192f15cbf4112757f93cdb9181487af8046a',
+    repo: 'gitalk-comments',
+    owner: 'KIMONOSAA',
+    admin: ['KIMONOSAA'],
+    distractionFreeMode: 'true',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (true) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script><script type="application/json" src="/search.xml"></script></body></html>
